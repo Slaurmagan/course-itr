@@ -9,6 +9,13 @@
   <strong>Summary:</strong>
   <%= @post.summary %>
 </p>
+<p>
+	<% @post.chapters.each.with_index do |chapter,i| %>
+		<h1><%= i + 1%>. <%= chapter.title %></h1>
+		<p><%= chapter.content %></p>
+		<hr>
+	<% end %>
+</p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
