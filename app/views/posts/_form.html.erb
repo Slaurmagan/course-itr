@@ -11,17 +11,30 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title,class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :summary %>
-    <%= form.text_area :summary %>
+    <%= form.text_area :summary,class: "form-control" %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <h1>Главы</h1>
+  <div data-controller="nested-form">
+    <template data-target='nested-form.template'>
+      <%= form.fields_for :chapters, Chapter.new, child_index: 'TEMPLATE_RECORD' do |chapter| %>
+        <%= render 'chapter_fields',form: chapter %>
+      <% end %>
+    </template>
+    <%= form.fields_for :chapters do |chapter| %>
+      <%= render 'chapter_fields',form: chapter %>
+    <% end %>
+    <div data-target="nested-form.add_chapter">
+      <%= link_to "Add chapter","#",data: { action: "click->nested-form#add_association"} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= form.submit class: "btn btn-success"%>
   </div>
 <% end %>
