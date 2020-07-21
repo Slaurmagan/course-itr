@@ -1,29 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
+<h1 class="text-center mb-5">Фанфики</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Summary</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @posts.each do |post| %>
+  <div class="jumbotron">
+    <h3 class="text-center"><%= link_to post.title,post_path(post) %></h3>
+    <p><%= post.summary %></p>
+    <hr>
+    <div class="row d-flex justify-content-between">
+      <div class="col d-flex justify-content-around">
+        <small>Кол-во глав: <%= post.chapters.count %></small>
+        <small>Средняя оценка: <%= rand(5) %></small>
+      </div>
+      <div class="col d-flex justify-content-around">
+        <% if user_signed_in? && current_user.id == post.user_id %>
+          <%= link_to 'Редактировать',edit_post_path(post) %>
+          <%= link_to 'Удалить',post_path(post),method: :delete, data: { confirm: 'Вы уверены?'} %>
+        <% end %>
+      </div>
+    </div>
 
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.summary %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
-
-<%= link_to 'New Post', new_post_path %>
+<% end %>

@@ -12,13 +12,27 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :title %>
+    <%= form.label :title do %>
+      Название
+    <% end %>
     <%= form.text_field :title,class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :summary %>
+    <%= form.label :summary do %> 
+      Краткое содержание
+    <% end %>
     <%= form.text_area :summary,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <div data-controller="autocomplete" data-autocomplete-url="/genres/search">
+      <%= form.label :genre do %>
+        Жанр
+      <% end %>
+      <input type="text" data-target="autocomplete.input" class="form-control" />
+      <%= form.text_field :genre,type: 'hidden',data: { target: 'autocomplete.hidden'} %>
+      <ul data-target="autocomplete.results"></ul>
+    </div>
   </div>
   <h1>Главы</h1>
   <div data-controller="nested-form">
