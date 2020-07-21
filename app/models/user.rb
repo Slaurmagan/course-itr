@@ -6,4 +6,6 @@ class User < ApplicationRecord
          :confirmable,:lockable
   has_many :posts
   has_many :comments
+  has_one_attached :avatar
+  has_many :chapter_likes
 end

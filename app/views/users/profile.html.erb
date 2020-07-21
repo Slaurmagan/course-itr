@@ -1,0 +1,52 @@
+<div class="mt-5">
+	<div class="row mb-5 jumbotron" data-controller="user">
+		<div class="col-4">
+			<% if @user.avatar.attached? %>
+				<%= image_tag @user.avatar %>
+			<% end %>
+		</div>
+		<div class="col-8">
+			<p>
+				<strong>Электронная почта:</strong> <span data-target="user.email"><%= @user.email %></span>
+			</p>
+			<p>
+				<strong>Имя: </strong> <span data-target="user.first_name"><%= @user.first_name %></span>
+			</p>
+			<p>
+				<strong>Фамилия: </strong> <span data-target="user.last_name"><%= @user.last_name %></span>
+			</p>
+			<% if user_signed_in? && current_user.id == @user.id %>
+				<button class="btn btn-success" data-action="click->user#render_form">Редактировать</button>
+			<% end %>
+		</div>
+	</div>
+	<h2 class="text-center mb-3">Список постов пользователя</h2>
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Название</th>
+	      <th scope="col">Краткое описание</th>
+	      <th scope="col">Кол-во глав</th>
+	      <th scope="col">Действия</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @user.posts.each do |post| %>
+			<tr>
+				<th scope="row"><%= post.id %></th>
+				<td><%= post.title %></td>
+				<td><%= post.summary %></td>
+				<td><%= post.chapters.count %></td>
+				<td>
+					<%= link_to 'Читать',post_path(post) %>
+					<% if user_signed_in? && @user.id == current_user.id %>
+						<%= link_to 'Ред.',edit_post_path(post) %>
+						<%= link_to 'Удалить',post_path(post),method: :delete %>
+					<% end %>
+				</td>
+			</tr>
+	  	<% end %>
+	  </tbody>
+	</table>
+</div>
