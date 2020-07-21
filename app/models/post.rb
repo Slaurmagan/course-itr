@@ -4,4 +4,5 @@ class Post < ApplicationRecord
 	accepts_nested_attributes_for :chapters,allow_destroy: true
 	has_one :post_genre
 	has_one :genre,through: :post_genre
+
 end
