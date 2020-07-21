@@ -49,4 +49,7 @@
 	  	<% end %>
 	  </tbody>
 	</table>
+	<% if user_signed_in? && current_user.id == @user.id %>
+		<%= link_to 'Создать пост',new_post_path %>
+	<% end %>
 </div>
