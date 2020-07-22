@@ -5,7 +5,6 @@ class PostChannel < ApplicationCable::Channel
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
-    stop_stream_for post
   end
 
   def post
