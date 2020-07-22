@@ -49,4 +49,6 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
+  database: course_production
+  username: course
+  password: <%= ENV['COURSE_DATABASE_PASSWORD'] %>
